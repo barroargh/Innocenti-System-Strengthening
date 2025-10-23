@@ -1,2 +1,2 @@
 # Innocenti-System-Strengthening
-This repository contains the solution for the test for innocenti for the application for the system strengthening consultancy
+This repository contains the solution for the application of the consultancy on system strengthening with Innocenti
