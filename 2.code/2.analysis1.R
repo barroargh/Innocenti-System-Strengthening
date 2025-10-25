@@ -3,9 +3,7 @@
 # PURPOSE: Analysis senior official of the Ministry of Education         
 # Author: 
 # Date: 23rd October 2025
-# Editied by: DB
-# Last edit: 
-#  
+  
 #      
 # Content
 #     1. Prep data for the analysis 
