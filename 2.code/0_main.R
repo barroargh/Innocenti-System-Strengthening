@@ -1,7 +1,7 @@
 # SCRIPT DETAILS ----------------------------------------------------------
 
 # PURPOSE: master script               
-# Author: Daniele Barro
+# Author: 
 # Date: 23rd October 2025
 # Editied by: DB
 # Last edit: 
@@ -21,28 +21,37 @@ options(max.print = 5000)
 options(tibble.width = Inf)
 memory.limit(size = 8000)
 
-# Run the install.packages() lines if you haven't installed there packages yet
 
-# REQUIRED PACKAGE -- install.packages("anthroplus")
+
+
+# 2. PACKAGES -------------------------------------------------------------
+
+
 # List of required packages
 required_packages <- c(
   "here",
   "readr",
   "dplyr",
   "tidyr",
+  "skimr",
   "tidyselect",
-  "data.table",
   "readxl",
   "writexl",
   "openxlsx",
   "ggplot2",
-  "rmarkdown",
-  "rlang",
-  "purrr",
-  "gt",
-  "webr",
-  "ggthemes",
-  "ggrepel"
+  "officer",
+  "janitor",
+  "psych",
+  "DataExplorer",
+  "lubridate",
+  "broom",
+  "lme4",
+  "scales",
+  "Hmisc",
+  "lmerTest",
+  "scales",
+  "modelsummary",
+  "broom.mixed"
 )
 
 # Function to check and install missing packages
@@ -60,26 +69,78 @@ install_if_missing(required_packages)
 library(here)
 library(readr) 
 library(dplyr) 
-library(tidyr) 
+library(tidyr)        # for data wrangling and visualization
+library(skimr)        # for quick overview
 library(tidyselect)
-library(data.table)
 library(readxl)
 library(writexl)
 library(openxlsx)
 library(ggplot2)
-library(officer)  # For PowerPoint export
-library(rvg) 
-library(scales)  # For formatting as currency
-library(rmarkdown)
-library(scales)  # For formatting
-library(plyr)    # For rounding to nearest multiple
+library(officer)
+library(janitor)      # for cleaning variable names
+library(psych)        # for descriptive stats
+library(DataExplorer) # for quick automated EDA
+library(tidyverse)
+library(janitor)
 library(lubridate)
-library(rlang)
-library(purrr)
-library(gt)
-library(flextable)
-library(webr)
-library(ggthemes)
-library(ggrepel)
-library(rlang)
-library(stringr)
+library(broom)
+library(lme4)     
+library(scales)   
+library(Hmisc)
+library(lmerTest)
+library(scales)
+library(modelsummary)
+library(broom.mixed)
+library(rmarkdown)
+# 3. SET-UP FOLDER STRUCTURE ----------------------------------------------
+# a. Code folder
+here::here()
+code_fld = here::here("2.code")
+
+# b. Input folder and file
+input_fld = here::here("3.input")
+
+# c. Output folder
+output_fld = here::here("4.output")
+out_data_fld = file.path(output_fld,"data")
+out_graph_fld =  file.path(output_fld,"graph")
+out_greg_fld =  file.path(output_fld,"regression")
+
+
+# 4. MASTER SET-UP --------------------------------------------------------
+
+    prep_data       = 1
+    
+    analysis        = 1
+    
+    prediction      = 1
+    
+# 5. RUN DO FILES  --------------------------------------------------------
+
+
+    # Prep education data 
+    if(prep_data == 1) {
+      
+      source(file.path(code_fld, "1.prep_data.R"))
+      
+      print("Script PREP DATA Done.")
+      
+    }
+
+    # Analyze education data
+    if(analysis == 1) {
+      
+      source(file.path(code_fld, "2.analysis1.R"))
+      
+      print("Script ANALYSIS Done.")
+      
+    }
+  
+    # prediciton  
+    if (prediction == 1) { 
+    rmarkdown::render(
+      input = file.path(code_fld,"prediction.Rmd"),
+      output_file = "HGSF_Attendance_Increase.docx",
+      output_dir  = here("4.output/predictions")
+    )
+   } 
